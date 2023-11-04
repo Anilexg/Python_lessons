@@ -114,34 +114,44 @@ import psycopg2
 # plt.show()
 
 ######## Bitcoins
+#
+# data = []
+# for i in range(6):
+#
+#     headers = {
+#     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"
+#     }
+#     url = "https://www.coinbase.com/explore?page={1}"
+#     res = requests.get(url, headers=headers)
+#     soup = BeautifulSoup(res.content, "html.parser")
+#
+#
+#
+#     table = soup.find('table', class_="cds-table-top40r1")
+#
+#     if table:
+#         rows = table.find_all('tr')
+#         for row in rows:
+#             columns = row.find_all("td")
+#             if len(columns) >= 8:
+#                 player_data = [column.text.strip() for column in columns]
+#                 data.append(player_data)
+#
+#     columns = ['Name', 'Price', 'Charts', 'Change', 'Market cap', 'Trade', 'Volume (24h)', 'Supply']
+#
+#
+# df = pd.DataFrame(data, columns = columns)
+#
+# df.to_csv("Coinbase.csv",index=False)
+#
+# print(df)
+#isvalo simbolius
 
-data = []
-for i in range(6):
-
-    headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0"
-    }
-    url = "https://www.coinbase.com/explore?page={1}"
-    res = requests.get(url, headers=headers)
-    soup = BeautifulSoup(res.content, "html.parser")
-
-
-
-    table = soup.find('table', class_="cds-table-top40r1")
-
-    if table:
-        rows = table.find_all('tr')
-        for row in rows:
-            columns = row.find_all("td")
-            if len(columns) >= 8:
-                player_data = [column.text.strip() for column in columns]
-                data.append(player_data)
-
-    columns = ['Name', 'Price', 'Charts', 'Change', 'Market cap', 'Trade', 'Volume (24h)', 'Supply']
-
-
-df = pd.DataFrame(data, columns = columns)
-
-df.to_csv("Coinbase.csv",index=False)
-
-print(df)
+# df = pd.DataFrame({
+#     'Stulpelis':["vienas#", 'Du@'],
+#     'Stulpelis2': ['Keturi#','penki@']
+# })
+#
+# special_chars = '[#@]'
+# df_cleaned = df.replace(special_chars,'', regex=True)
+# print(df_cleaned)

@@ -76,54 +76,54 @@ import psycopg2
 # kuriame patys su kitais objektais:
 
 flats_data = []
-def create_and_insert_flats():
-    #kuriam connectiona prie duomenu bezes:
-    connection = psycopg2.connect(
-        host = "localhost",
-        port = 5432,
-        database = "Aruodas",
-        user="postgres",
-        password = "Jokubas2017"
-    )
-
-    cursor = connection.cursor()
-
-    create_table_query = """
-        CREATE TABLE IF NOT EXISTS aruodas_uzsienis (
-            id SERIAL primary key,
-            flat_title VARCHAR(300),
-            flat_price DECIMAL(10,2)
-        )
-        """
-
-    cursor.execute(create_table_query)
-    print("Table created Successfully!")
-
-
-    url = "https://www.aruodas.lt/uzsienio-objektai/"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content,"html.parser")
-    content_block = soup.select('div.project-list-item')
-
-    for content in content_block:
-        try:
-            flat_title = content.find("h2", class_="project-title-full project-title").text.strip()
-            flat_price = content.find("h3", class_="project-title-full project-min-values").text.strip() \
-                .replace(" ", "").replace("€", "").split(sep="Kaina:")[1]
-            cursor.execute("select 1 from aruodas_uzsienis where flat_title = %s and flat_price = %s",(flat_title, float(flat_price)))
-            exists = cursor.fetchone()
-            if not exists:
-                cursor.execute("INSERT INTO aruodas_uzsienis (flat_title, flat_price) VALUES (%s, %s)",(flat_title, float(flat_price)))
-            # print(flat_title, flat_price)
-            # flats_data.append((flat_title, flat_price))
-
-        except AttributeError:
-            continue
-    print("Flats inserted successfully!")
-
-
-    connection.commit()
-
-create_and_insert_flats()
+# def create_and_insert_flats():
+#     #kuriam connectiona prie duomenu bezes:
+#     connection = psycopg2.connect(
+#         host = "localhost",
+#         port = 5432,
+#         database = "Aruodas",
+#         user="postgres",
+#         password = "Jokubas2017"
+#     )
+#
+#     cursor = connection.cursor()
+#
+#     create_table_query = """
+#         CREATE TABLE IF NOT EXISTS aruodas_uzsienis (
+#             id SERIAL primary key,
+#             flat_title VARCHAR(300),
+#             flat_price DECIMAL(10,2)
+#         )
+#         """
+#
+#     cursor.execute(create_table_query)
+#     print("Table created Successfully!")
+#
+#
+#     url = "https://www.aruodas.lt/uzsienio-objektai/"
+#     response = requests.get(url)
+#     soup = BeautifulSoup(response.content,"html.parser")
+#     content_block = soup.select('div.project-list-item')
+#
+#     for content in content_block:
+#         try:
+#             flat_title = content.find("h2", class_="project-title-full project-title").text.strip()
+#             flat_price = content.find("h3", class_="project-title-full project-min-values").text.strip() \
+#                 .replace(" ", "").replace("€", "").split(sep="Kaina:")[1]
+#             cursor.execute("select 1 from aruodas_uzsienis where flat_title = %s and flat_price = %s",(flat_title, float(flat_price)))
+#             exists = cursor.fetchone()
+#             if not exists:
+#                 cursor.execute("INSERT INTO aruodas_uzsienis (flat_title, flat_price) VALUES (%s, %s)",(flat_title, float(flat_price)))
+#             # print(flat_title, flat_price)
+#             # flats_data.append((flat_title, flat_price))
+#
+#         except AttributeError:
+#             continue
+#     print("Flats inserted successfully!")
+#
+#
+#     connection.commit()
+#
+# create_and_insert_flats()
 
 
