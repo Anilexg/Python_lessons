@@ -25,8 +25,3 @@ def imdb_scraper():
 # imdb_scraper()
 
 
-
-
-
-
-
